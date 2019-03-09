@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://javascript-sdk.smartcar.com/sdk-2.0.0.js"></script>
+    <title>SmartCar Hack</title>
+  </head>
+  <body>
+    <button type="button" id="login-button">Log in</button>
+
+    <script>
+      const RED_URI =
+        "https://javascript-sdk.smartcar.com/redirect-2.0.0?app_origin=http://localhost:5500";
+      const smartcar = new Smartcar({
+        clientId: "e8236e6a-5e3d-4503-9b86-1e2181c6e4a8",
+        redirectUri: RED_URI,
+        scope: ["read_vehicle_info", ],
+        testMode: true,
+        onComplete: function(err, code) {
+          if (err) {
+            alert(`Error: ${code}`);
+          }
+          // handle the returned code by sending it to your back-end server
+          
+          
+          sendToBackend(code);
+        }
+      });
+      
+
+      smartcar.addClickHandler({id: 'login-button'});
+    </script>
+  </body>
+</html>

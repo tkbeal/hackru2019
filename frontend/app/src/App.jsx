@@ -28,11 +28,14 @@ class App extends Component {
 
   onComplete(err, code, status) {
     // TODO: Authorization Step 3: Receive the authorization code
-    return axios.get(``);
-
-    // TODO: Request Step 1: Obtain an access token
-
-    // TODO: Request Step 2a: Get vehicle information
+    return axios
+    .get(`/exchange?code=${code}`) //Getting access token
+    .then(_ => {
+      return axios.get(`/vehicle`); //Then asking for vehicle information
+    })
+    .then(res => {
+      this.setState( {vehicle: res.data} );
+    })
   }
 
   authorize() {

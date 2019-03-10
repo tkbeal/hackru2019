@@ -13,6 +13,7 @@ from shapely.geometry.polygon import Polygon
 import numpy as np
 import json
 import os
+import threading
 
 class Zone(object):
     def __init__(self, zone_id, owner, hours_active_weekly = [], points = []):
@@ -142,21 +143,28 @@ def vehiclesInZones():
     zones = db.collection(u'zones').get()
 
     for zone in zones:
-        poly = Polygon(zone.to_dict()["points"])
+        if isZoneActive(zone):
+            poly = Polygon(zone.to_dict()["points"])
 
-        user = db.collection(u'users').document(zone.to_dict()["owner"]).get().to_dict()
-        if user['access_token_expire_utc'] - time.time() < 60 * 5:
-            True #Refresh token here
+            user = db.collection(u'users').document(zone.to_dict()["owner"]).get().to_dict()
+            if user['access_token_expire_utc'] - time.time() < 60 * 5:
+                True #Refresh token here
+        
+            access_token = user['access_token']
+            vehicles = smartcar.get_vehicle_ids(access_token)['vehicles']
+
+            for i in range(len(vehicles)):
+                vehicle = smartcar.Vehicle(vehicles[i], access_token)
+                location = vehicle.location()
+                point = Point(location.latitude, location.longitude)
+                if not poly.contains(point):
+                    True # Do something
     
-        access_token = user['access_token']
-        vehicles = smartcar.get_vehicle_ids(access_token)['vehicles']
+    threading.Timer(60, vehiclesInZones).start()
 
-        for i in range(len(vehicles)):
-            vehicle = smartcar.Vehicle(vehicles[i], access_token)
-            location = vehicle.location()
-            point = Point(location.latitude, location.longitude)
-            if not poly.contains(point):
-                True #Do something here
+
+def isZoneActive(zone):
+    return True
 
 if __name__ == '__main__':
     app.run(port=8000)

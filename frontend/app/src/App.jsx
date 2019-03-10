@@ -45,11 +45,11 @@ class App extends Component {
 
   render() {
     // TODO: Authorization Step 2b: Launch the authorization flow
-    return(
+    return Object.keys(this.state.vehicle).length !== 0 ? (
+      <Vehicle info={this.state.vehicle} />
+    ) : (
       <Connect onClick={this.authorize}/>
     );
-
-    // TODO: Request Step 2b: Get vehicle information
   }
 }
 

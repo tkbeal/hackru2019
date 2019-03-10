@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "bitcamp-testing-1548385937991",
+  "private_key_id": "9a741172c76fed40ba64edb357ddbe8c7da4db9c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDQbfq+pxfPSHsy\niamOdqwM+wzGUOZKXv+wsCmZcZdvS3DSaVePdrkRPWzckVgx2Ug1G5mw0mY5SU8n\nHT4YyNKdXdWdSaECutzciilsOKZY+w14YPsh3/TjjJSH/q49OzFby/C9UQfY4jMa\nN3lIimwTi6Xi+F8O/gahCq9cIn8QhsToyg2+D73NmzZi4vekpYZwiT7k9ys+cKRf\ntF+zghWIEgekzqWv/uW5JkB+1eVAg1FsFemPfkAMS152FQ9tjWVSiUPeFJ04znxE\na4doD8WgQCHzxBcko945DBZdM0osYWJr9RcJfAoOE/9GLTM6xtoso/oYp18kLQfp\noVm1QpFlAgMBAAECggEAHVatyfJpRpM0TDvWcyg/NaCM/slacTOIGE3jvSahI1hi\nLCwJ2Dbk/AlCbpXC7VlhcaBN9PbYzs2D58SU/hYel2oi7H31vRWiiySjigk7WSEV\nl1FHaFBG/1TFf5MY4aOYYgyF+ZATY7MLcHBIkS5y4hlxI07Eyq51Lmv7nSN58VBW\nFRStB3ow36KUqKVdnIU4VOrzPggcAPPGOMv/8rdaBxu1ZOU53vf3aAnXbBfykgT8\n5SFn1mOETIveHA/6soHyrjVt0OpBUOAsrKWuuZv7O3rSpOK8UPVB5DRANBC7CEy+\n52/uZwulf1icizBlYB71TaRtN/hA8Is7NW3GA0X4QQKBgQDovJ8LBuGDo3lM2+zV\nd1V64blOK8XpJ9xS3DnQMqCnC6UF87le1OqFUrT/mkV9nRHBIdTlgn6pat6dCTDm\ny7MvxDGprl9y1pY79Hz3GoINTnGbsjTcwOo0nZmKt2vqsdg6p4JypEYQQQO1m+BY\nwngtKIGIfM7RYuj62wcbNli5UQKBgQDlQ1/RLSSBNg16xJhUPg0PIkWD+BDRDtfU\nuw6lL0HthBCHBFh+0tB87X+BKkqQ0kVxQvJ7d7e5Cia474LfG3Ac9u50TBEf+Tmt\n0kRUqJyZSBCRTxdeB6kLRtwDt0qTUOp4p9BOHoAxm5vgcLEEho/ZtLEdJwe7fmHH\nYnAUHoIR1QKBgQDVbNugXhACCrBa9jcKTqO5yzOGZwfX1zDpX4E41qSSa1BK1AVC\n3Jev6XeICi39kkNMy7yTN4b1z8YTVfFdRKGuhQlR5FEtW3Fry7mpVMq8bxopwFNP\nuS1NUNUT6z5we+ShbSln/hMuJqDDMw2Z98QDDWk0A9gZFc429RJgNwdH8QKBgQDc\nisdtrYNkWN72ro/q2hYt7MX6gXOL6D9vgNJBzQgat+Q+PcvzlFDDHKR/WHOKhPwQ\nTFp+s1elRUKivKSkgvyCoHgan+IJY/I8Z/0bg2fBfDWT0wWjirLvCicz2+p9dGVZ\n0/TqcSTYk9yLN1zSAa/3uX53kMg7cQQWjXdLo110UQKBgDuSpJEbrZcs0ufDSdWf\nnh1FW1s3UwASp+Fo3TBss1I/uhsWh/9CDP331N8hLpmkndwncDM0n90EjF2oWm0L\nsxt1dZd52C0BkpVgZ46MtLfLeb2Lt71484wrNauqj5HZZAtEV9JJOumxfSMEtnYQ\nDcdBy73jbDsJyI6jABDE17Fe\n-----END PRIVATE KEY-----\n",
+  "client_email": "firestore@bitcamp-testing-1548385937991.iam.gserviceaccount.com",
+  "client_id": "113177294579758969744",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firestore%40bitcamp-testing-1548385937991.iam.gserviceaccount.com"
+}
+

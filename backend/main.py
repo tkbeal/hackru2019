@@ -1,10 +1,16 @@
 import smartcar
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+
 from flask import Flask, redirect, request, jsonify
 from flask_cors import CORS
 
+from shapely.geometry import Point
+from shapely.geometry.polygon import Polygon
+
+import numpy as np
 import json
 import os
 
@@ -102,7 +108,6 @@ def zone():
 
     return '', 200
 
-
 @app.route('/vehicles', methods=['GET'])
 def vehicles():
     user_id = requests.args.get('user_id')
@@ -121,7 +126,7 @@ def vehicles():
 
         info = vehicle.info()
         print(info)
-        vin = vehicle.vin();
+        vin = vehicle.vin()
         print(vin)
         odometer = vehicle.odometer()
         print(odometer)
@@ -132,6 +137,26 @@ def vehicles():
         response.append(data)
 
     return jsonify(response)
+
+def vehiclesInZones():
+    zones = db.collection(u'zones').get()
+
+    for zone in zones:
+        poly = Polygon(zone.to_dict()["points"])
+
+        user = db.collection(u'users').document(zone.to_dict()["owner"]).get().to_dict()
+        if user['access_token_expire_utc'] - time.time() < 60 * 5:
+            True #Refresh token here
+    
+        access_token = user['access_token']
+        vehicles = smartcar.get_vehicle_ids(access_token)['vehicles']
+
+        for i in range(len(vehicles)):
+            vehicle = smartcar.Vehicle(vehicles[i], access_token)
+            location = vehicle.location()
+            point = Point(location.latitude, location.longitude)
+            if not poly.contains(point):
+                True #Do something here
 
 if __name__ == '__main__':
     app.run(port=8000)

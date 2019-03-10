@@ -9,20 +9,25 @@ import json
 import os
 
 class Zone(object):
-    def __init__(self, owner, hours_active_weekly = [], points = []):
+    def __init__(self, zone_id, owner, hours_active_weekly = [], points = []):
         self.owner = owner
+        self.zone_id = zone_id
         self.hours_active_weekly = hours_active_weekly
         self.points = points
 
     @staticmethod
-    def from_dict(source):
-        return Zone(source['owner'], source['hours_active_weekly'], [(p.latitude, p.longitude) for p in source['points']])
-
+    def from_dict_firebase(source, zone_id):
+        return Zone(source['owner'], zone_id, source['hours_active_weekly'], [(p.latitude, p.longitude) for p in source['points']])
+    
+    @staticmethod
+    def from_dict_frontend(source, zone_id):
+        return Zone(source['owner'], zone_id, source['hours_active_weekly'], source['points'])
+    
     def to_dict_firebase(self):
-        return {'owner' : self.owner, 'hours_active_weekly' : self.hours_active_weekly, 'points' : [GeoPoint(p.latitude, p.longitude) for p in self.points]}
+        return {u'owner' : self.owner, u'hours_active_weekly' : self.hours_active_weekly, u'points' : [firestore.GeoPoint(p[0], p[1]) for p in self.points]}
 
     def to_dict(self):
-        return {'owner' : self.owner, 'hours_active_weekly' : self.hours_active_weekly, 'points' : self.points}
+        return {'owner' : self.owner, 'id' : zone_id, 'hours_active_weekly' : self.hours_active_weekly, 'points' : self.points}
 
     def __str__(self):
         return json.dumps(self.__dict__)
@@ -68,7 +73,7 @@ def exchange():
 
     user['access_token'] = access['access_token']
 
-    db.collection(u'users').document(user_id).set(user))
+    db.collection(u'users').document(user_id).set(user)
 
     return '', 200
 
@@ -80,20 +85,29 @@ def zones():
     resp = []
 
     for doc in docs:
-        resp.append(Zone.from_dict(doc.to_dict()))
+        print(doc.id)
+        resp.append(Zone.from_dict_firebase(doc.to_dict()))
 
     print(resp)
     return "{" + str(resp) + "}"
 
 @app.route('/zone', methods=['POST'])
 def zone():
-    pass
+    data = json.loads(request.data)
+    zone = Zone.from_dict_frontend(data['zone'], data['id'])
+    print(zone.zone_id)
+    print(zone.to_dict)
+    print(zone.to_dict_firebase)
+    db.collection(u'zones').document(zone.zone_id).set(zone.to_dict_firebase())
+
+    return '', 200
+
 
 @app.route('/vehicles', methods=['GET'])
-def vehicles:
+def vehicles():
     user_id = requests.args.get('user_id')
     
-    user = db.collection.(u'users').document(user_id).get().to_dict()
+    user = db.collection(u'users').document(user_id).get().to_dict()
     if user['access_token_expire_utc'] - time.time() < 60 * 5:
         True #Refresh token here
     
